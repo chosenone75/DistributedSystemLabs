@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>{{ .Title }} 的当前时间</title>
+
+    <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
+
+</head>
+<script src='js/jquery.js'></script>
+
+<script>
+$(function() {
+        var countdown = document.getElementById("tiles"); // get tag element
+        
+        getCountdown();
+
+	setInterval(function () { getCountdown(); }, 1000);
+
+	function getCountdown(){
+		var ajax = new XMLHttpRequest();
+		ajax.open('get',"update?t=" + Math.random());
+		ajax.send();
+		ajax.onreadystatechange = function () {
+
+		   if (ajax.readyState==4 &&ajax.status==200) {
+                       var result = ajax.responseText
+                       var words = result.split(/\s+/)
+                       countdown.innerHTML = "<span>" + words[0] + "</span><span>" + words[1] + "</span><span>" + words[2] + "</span>";
+		  　　}
+		}
+	}
+});
+</script>
+
+
+<body>
+
+  <div id="countdown">
+  <div id='tiles'></div>
+  <div class="labels">
+    <li>Hours</li>
+    <li>Mins</li>
+    <li>Secs</li>
+  </div>
+</div>
+
+
+<div style="text-align:center;clear:both;">
+
+</div>
+</body>
+
+</html>
